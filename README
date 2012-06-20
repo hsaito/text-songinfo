@@ -1,1 +1,10 @@
 This is text/songinfo project, a JSON format for song info transfer, to be used in web services and other systems, including Web Intents.
+
+Implementations
+
+Web Intents
+https://chrome.google.com/webstore/detail/odojhaodopfmeogmkmppahanebfolifd
+https://chrome.google.com/webstore/detail/eplnedoodkelicepkfcchpojblealngp
+
+Web Service
+http://songlist.hclippr.com/
