@@ -1,0 +1,106 @@
+# -*- coding: utf-8-unix -*-
+#+TITLE: text/songinfo Portable Format
+#+AUTHOR: The text/songinfo Working Group
+#+LANGUAGE: en
+
+DRAFT
+
+* Abstract
+text/songinfo is a JSON based information exchange format that allows musical categorization information to be transfered from one to another.
+
+* Terms
+"Songs" within this document, refers to any type of musical work.
+
+* Usage
+text/songinfo is used as general purpose song information transfer and integration.
+
+** Example
+*** As an API
+text/songinfo can be used in response to query to API. Providing applications to interface with others.
+
+*** As an Web Intents
+text/songinfo can be used in conjunction with [[http://webintents.org][Web Intents]]. Using Web Intents, the one site can interface with other sites. For example, a site can invoke Web Intents connecting to song information site for more information. Other implementation may start play back of the music, or send Karaoke request.
+
+* Structures
+** Base Item Structure
+This section contains basic information about songs, as well as its identifiers.
+
+The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED",  "MAY", and "OPTIONAL" in this document are to be interpreted as described in RFC 2119.
+
+*** songId
+- Type: number
+- Required: false
+
+/songId/ contains unique identification of the song being described in the format. Since text/songinfo is portable format, /songId/ only carries notation that may only be valid in limited context. Therefore, an implementation SHOULD NOT assume uniqueness of /songID/. If the implementation wishes to use songId from the list of songs resulting from foreign sources, the implementation SHOULD assign its own /songId/ to be used within the implementation.
+
+*** songTitle
+- Type: string
+- Required: true
+
+/songTitle/ contains title of the song.
+
+*** songArtist
+- Type: string
+- Required: true
+
+/songArtist/ contains author of the song. If the song contains multiple authors, the implementation SHOULD either include principal artist of the song, and add multiple entries of Author Extension.
+
+*** songAlbum
+- Type: string
+- Required: false
+
+/songAlbum/ contains album that includes the song.
+
+*** songReference
+- Type: string
+- Required: false
+
+/songReference/ is used to notate origin of the song, such as related work, such as TV shows.
+
+*** songISRC
+- Type: string
+- Required: false
+
+Contains song's International Standard Recording Code (ISRC) or ISO 3901.
+
+*** songISWC
+- Type: string
+- Required: false
+
+Contains song's International Standard Musical Work Code (ISWC) or ISO 15707.
+
+** TODO Author Extension
+The Author Extension further defines author of the song. This should be included in /songAuthorExtension/
+*** composer
+*** writer
+*** arranger
+*** producer
+** Karaoke Extension
+Karaoke structure contains additional information regarding Karaoke, or singing apparatus including call codes for the song.
+Call code MUST be prefixed with /vnd/ followed by their domain followed by the product using underscore as separator.
+
+#+BEGIN_EXAMPLE
+"vnd_com_example_superkaraoke": "12345"
+#+END_EXAMPLE
+
+* Example
+#+BEGIN_SRC Javascript
+{
+    "songId": 6,
+    "songTitle": "Wake Me Up When September Ends",
+    "songArtist": "Green Day",
+    "songReference": ""
+    "songAuthorExtension":
+    {
+	singer: 
+	[ "Green Day" ]
+	writer:
+	[ "Billie Joe Armstrong", "Green Day" ]
+	producer:
+	[ "Rob Cavallo", "Green Day" ]
+    }
+    "karaoke": {
+        "vnd_com_example_superkaraoke": "12345",
+    }
+}
+#+END_SRC
